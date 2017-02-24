@@ -1,0 +1,50 @@
+################ README #######################
+
+For installation instructions see INSTALLATION
+
+This program reads 3D atomic positions of molecules (e.g. .pdb file) and analyzes the population surrounding defined input sites.
+In addition, It makes average ocupation profiles in 1 and 2 dimensions.
+
+Some examples resulting from adsorption of gasses in porous materials are in the examples folder
+
+To run the program, copy the zzrunSITES script and sites.input file to your working directory.
+If ComputeSites is set as "yes" XXXX_Framework_sites.pdb file should be in the working directory (where XXXX is the FrameworkName requested in the sites.input).
+The run the program:
+
+> ./zzrunSITES your_file.pdb
+
+where your_file.pdb is the file that contain the 3-dimensional positions of the atoms.
+By default the program read a standard file in .pdb format https://en.wikipedia.org/wiki/Protein_Data_Bank_(file_format) with structure:
+
+MODEL    1
+CRYST1   40.134   40.134   26.822  90.00  90.00  90.00
+ATOM      1  C   MOL            27.425  -0.287  17.565  1.00  0.00           C
+ATOM      2  C   MOL            28.702  -0.887  16.841  1.00  0.00           C
+ATOM      3  C   MOL            30.105  -0.354  17.166  1.00  0.00           C
+ATOM      4  C   MOL            30.420   0.986  16.451  1.00  0.00           C
+ATOM      5  C   MOL            30.582   0.885  15.058  1.00  0.00           C
+ATOM      6  C   MOL            30.131  -0.250  18.754  1.00  0.00           C
+ENDMDL
+MODEL    2
+CRYST1   40.134   40.134   26.822  90.00  90.00  90.00
+ATOM      1  C   MOL            27.425  -0.287  17.565  1.00  0.00           C
+ATOM      2  C   MOL            28.702  -0.887  16.841  1.00  0.00           C
+ATOM      3  C   MOL            30.105  -0.354  17.166  1.00  0.00           C
+ATOM      4  C   MOL            30.420   0.986  16.451  1.00  0.00           C
+ATOM      5  C   MOL            30.582   0.885  15.058  1.00  0.00           C
+ATOM      6  C   MOL            30.131  -0.250  18.754  1.00  0.00           C
+ENDMDL
+...
+...
+...
+MODEL    n
+CRYST1   40.134   40.134   26.822  90.00  90.00  90.00
+ATOM      1  C   MOL            27.425  -0.287  17.565  1.00  0.00           C
+ATOM      2  C   MOL            28.702  -0.887  16.841  1.00  0.00           C
+ATOM      3  C   MOL            30.105  -0.354  17.166  1.00  0.00           C
+ATOM      4  C   MOL            30.420   0.986  16.451  1.00  0.00           C
+ATOM      5  C   MOL            30.582   0.885  15.058  1.00  0.00           C
+ATOM      6  C   MOL            30.131  -0.250  18.754  1.00  0.00           C
+ENDMDL
+
+
