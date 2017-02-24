@@ -1,0 +1,25 @@
+# DON'T MODIFY THE STRUCTURE OF THIS FILE
+#  Number of atoms/pseudoatoms in the adsorbate molecule
+AtomNumbers         6
+# Compute options
+ComputeAverageOccupationProfiles2D         yes
+# Choose the resolution of the 2D picture **
+Resolution                                 300
+ComputeAverageOccupationProfiles1D         no
+ComputeSites                               no
+# Framework name for pdb file with positions of sites  **
+FrameworkName       MEL
+NumberOfSites        2
+#Site  number_of_positions  radius_x  radius_y  radius_z  **
+#geometry  direction  **
+1             16               5.0      5.0       5.0
+cylindrical      z 
+2             16               5.0      5.0       5.0
+spherical        x
+
+
+#NOTES **
+# Resolution of the picture. (Default 300) (low resolution 100), Higher resolution implies a big increase in the computational cost
+# Framework name format : XXXX of input file XXXX_Framework_sites.pdb
+#(geometry:     spherical, cubic, rectangular, cylindrical)
+#(direction: x, y, z    mandatory for all geometries but only used in cylindrical option)

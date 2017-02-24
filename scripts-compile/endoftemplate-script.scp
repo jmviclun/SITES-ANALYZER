@@ -1,0 +1,9 @@
+
+rm atom-positions.dat SITE-positions.dat
+rm input-fortran INPUT.pdb
+
+echo "      "
+echo "       =============    "
+echo "       End Of Script    "
+echo "       =============    "
+echo "      "
