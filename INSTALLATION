@@ -1,0 +1,19 @@
+####INSTALLATION#####
+
+To install this program make executable the instalation script install.scp
+> chmod +x install.scp
+
+and type:
+> ./install.scp
+
+
+This installation creates the main binary executable of the program in the execute folder and prepare the zzrunSITES script to run the program
+By default, it uses gfortran compiler. To use a different fortran compiler, modify the install.scp script.
+
+zzrunSITES.scp script run the program and automatically generates a 2D plot using GNUPLOT program. 
+The precision of the code is set as 8. For changes, one should change this value in the site-analyzer.f90 program and distances.f90 subroutine simultaneusly.
+
+NOTE: If the main folder SITES-ANALYZER is moved to other directory, the program should be reinstaled and the scripts updated. 
+Recomendation: Don't modify the folders structure. Install the program in a fixed directory and copy the necessary run and input files to a working directory. 
+
+Jose Manuel Vicent-Luna
