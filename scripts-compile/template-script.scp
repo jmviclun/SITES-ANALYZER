@@ -1,0 +1,22 @@
+#!/bin/bash
+
+rm -r AvOPs
+
+cp $1 INPUT.pdb
+
+Fname=$(grep "FrameworkName" sites.input | awk '{print $2}')
+
+grep "ATOM" $1 | awk '{print $5,$6,$7}' > atom-positions.dat
+grep "ATOM" ${Fname}_Framework_sites.pdb | awk '{print $5,$6,$7}' > SITE-positions.dat
+
+wc -l INPUT.pdb | awk '{print $1}' > input-fortran
+grep MODEL INPUT.pdb | wc -l >> input-fortran
+wc -l atom-positions.dat | awk '{print $1}' >> input-fortran
+grep "CRYST" INPUT.pdb | head -1 | awk '{print $2,$3,$4,$5,$6,$7}' >> input-fortran
+grep -v "#" sites.input >> input-fortran 
+
+mkdir AvOPs
+
+mkdir AvOPs/1D
+mkdir AvOPs/2D
+

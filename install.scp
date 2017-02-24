@@ -1,0 +1,26 @@
+#!/bin/bash
+
+rm execute/site.x zzrunSITES
+
+FC=gfortran
+EXE=site.x
+
+ $FC -O3 -pedantic src/site-analyzer.f90 -o execute/$EXE
+
+ppwd=$(pwd)
+
+cp scripts-compile/template-script.scp zzrunSITES
+
+echo "$ppwd/execute/site.x" >> zzrunSITES
+
+echo "  " >> zzrunSITES
+echo "cp $ppwd/gnuplot-script/plot-AvOPs-2D.gnuplot AvOPs/2D/." >> zzrunSITES
+
+echo "cd AvOPs/2D" >> zzrunSITES
+echo "gnuplot plot-AvOPs-2D.gnuplot" >> zzrunSITES
+echo "cd ../../" >> zzrunSITES
+
+cat scripts-compile/endoftemplate-script.scp >> zzrunSITES
+chmod +x zzrunSITES
+
+
