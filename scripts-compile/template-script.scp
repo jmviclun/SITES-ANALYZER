@@ -1,13 +1,21 @@
 #!/bin/bash
 
+if [ -d "AvOPs" ]; then
 rm -r AvOPs
+fi
 
 cp $1 INPUT.pdb
 
-Fname=$(grep "FrameworkName" sites.input | awk '{print $2}')
-
 grep "ATOM" $1 | awk '{print $5,$6,$7}' > atom-positions.dat
+
+compsites=$(grep "ComputeSites" sites.input | awk '{print $2}')
+if [ $compsites = "yes" ]
+then
+Fname=$(grep "FrameworkName" sites.input | awk '{print $2}')
 grep "ATOM" ${Fname}_Framework_sites.pdb | awk '{print $5,$6,$7}' > SITE-positions.dat
+else
+echo " " > SITE-positions.dat
+fi
 
 wc -l INPUT.pdb | awk '{print $1}' > input-fortran
 grep MODEL INPUT.pdb | wc -l >> input-fortran
