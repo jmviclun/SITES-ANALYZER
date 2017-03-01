@@ -1,7 +1,7 @@
 ! SITE-ANALYZER version beta_1.0
 ! Developed by J.M. Vicent-Luna and A. Slawek
 ! First version created: January 2017
-! Last version modified: 23 February 2017
+! Last version modified: 01 March 2017
 
       PROGRAM siteAnalyzer
       IMPLICIT NONE

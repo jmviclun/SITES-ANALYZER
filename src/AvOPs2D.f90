@@ -1,16 +1,69 @@
-       lycgam=ly*cgam
-       lysgam=ly*sgam
-       ix=(lx-lycgam)/nbw
-       ix2=lx/nbw
-       iy=lysgam/nbw
-       iz=lz/nbw
-       ixp2=ix/2.0
-       ix2p2=ix2/2.0
-       iyp2=iy/2.0
-       izp2=iz/2.0
+       ix=(lx-lycgam-lzcbet)/nbw
+       iy=(lysgam-lzcalp)/nbw
+       iz=(lzsbet*salp)/nbw
    
        ALLOCATE (intensityxy(1:nbw,1:nbw), intensityyz(1:nbw,1:nbw), &
                  intensityzx(1:nbw,1:nbw))
+     
+       SELECT CASE (structype)
+
+       CASE ("type0")
+       initx=0.0
+       inity=0.0
+
+       CASE ("type1")
+
+       IF (alp.GT.90.0) THEN 
+       iy=(lysgam-lzcalp)/nbw
+       inity=lzcalp
+       initx=0.0
+       ELSE IF (alp.LE.90.0) THEN
+       iy=(lysgam+lzcalp)/nbw
+       inity=0.0  
+       initx=0.0
+       END IF
+
+       CASE ("type2")
+
+       IF (bet.GT.90.0) THEN 
+       ix=(lx-lzcbet)/nbw
+       initx=lzcbet
+       inity=0.0
+       ELSE IF (bet.LE.90.0) THEN
+       ix=(lx+lzcbet)/nbw
+       initx=0.0 
+       inity=0.0 
+       END IF
+
+       CASE ("type3")
+
+       IF (gam.GT.90.0) THEN 
+       ix=(lx-lycgam)/nbw
+       initx=lycgam
+       inity=0.0 
+       ELSE IF (gam.LE.90.0) THEN
+       ix=(lx+lycgam)/nbw
+       initx=0.0  
+       inity=0.0  
+       END IF
+      
+       CASE ("type4")
+       IF (lycgam.GT.lzcbet) THEN
+       ix=(lx+2.0*ABS(lycgam))/nbw
+       initx=-1*ABS(lycgam)
+       ELSE
+       ix=(lx+2.0*ABS(lzcbet))/nbw
+       initx=-1*ABS(lzcbet)
+       END IF
+       iy=(lysgam+2*ABS(lzcalp))/nbw
+       inity=-1*ABS(lzcalp)
+
+       END SELECT
+
+       ixp2=ix/2.0
+       iyp2=iy/2.0
+       izp2=iz/2.0
+
        intensityxy=0.0
        intensityyz=0.0
        intensityzx=0.0
@@ -31,14 +84,14 @@
         DO j=1,f                                       ! loop 2 
          DO k=1,nbw                                    ! loop 3
           DO l=1,nbw                                   ! loop 4
-      IF ((xCOM(i,j).GT.(ix*k-ixp2+lycgam)).AND.(xCOM(i,j).LE.(ix*k+ixp2+lycgam))&
-         .AND.(yCOM(i,j).GT.(iy*l-iyp2)).AND.(yCOM(i,j).LE.(iy*l+iyp2))) &
+      IF ((xCOM(i,j).GT.(ix*k-ixp2+initx)).AND.(xCOM(i,j).LE.(ix*k+ixp2+initx))&
+         .AND.(yCOM(i,j).GT.(iy*l-iyp2+inity)).AND.(yCOM(i,j).LE.(iy*l+iyp2+inity))) &
          intensityxy(k,l)=intensityxy(k,l)+1
-      IF ((yCOM(i,j).GT.(iy*k-iyp2)).AND.(yCOM(i,j).LE.(iy*k+iyp2))&
+      IF ((yCOM(i,j).GT.(iy*k-iyp2+inity)).AND.(yCOM(i,j).LE.(iy*k+iyp2+inity))&
          .AND.(zCOM(i,j).GT.(iz*l-izp2)).AND.(zCOM(i,j).LE.(iz*l+izp2))) &
          intensityyz(k,l)=intensityyz(k,l)+1
       IF ((zCOM(i,j).GT.(iz*k-izp2)).AND.(zCOM(i,j).LE.(iz*k+izp2))&
-         .AND.(xCOM(i,j).GT.(ix2*l-ix2p2)).AND.(xCOM(i,j).LE.(ix2*l+ix2p2))) &
+         .AND.(xCOM(i,j).GT.(ix*l-ixp2+initx)).AND.(xCOM(i,j).LE.(ix*l+ixp2+initx))) &
          intensityzx(k,l)=intensityzx(k,l)+1
           END DO                                      ! loop 4
          END DO                                       ! loop 3   
@@ -47,9 +100,9 @@
 
        DO k=1,nbw
         DO l=1,nbw
-        WRITE(21,'(F8.2,F8.2,I12)') ix*k+lycgam,iy*l,intensityxy(k,l)
-        WRITE(22,'(F8.2,F8.2,I12)') iy*k,iz*l,intensityyz(k,l)
-        WRITE(23,'(F8.2,F8.2,I12)') iz*k,ix2*l,intensityzx(k,l)
+        WRITE(21,'(F8.2,F8.2,I12)') ix*k+initx,iy*l+inity,intensityxy(k,l)
+        WRITE(22,'(F8.2,F8.2,I12)') iy*k+inity,iz*l,intensityyz(k,l)
+        WRITE(23,'(F8.2,F8.2,I12)') iz*k,ix*l+initx,intensityzx(k,l)
         IF (l.EQ.nbw) THEN
         WRITE(21,*) " "
         WRITE(22,*) " "
