@@ -1,4 +1,24 @@
 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!    CUBIC      !!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        DO s=1,numberofsites
+        IF (geom(s).EQ."cubic") THEN
+        IF ((radx(s).NE.rady(s)).OR.(radx(s).NE.radz(s)).OR. &
+             (rady(s).NE.radz(s))) THEN
+        PRINT*, "ERROR, RADIUS DON'T DEFINE A CUBE!"; PRINT*, ""
+        STOP
+        END IF
+        geom(s)="rectangular"
+        END IF
+        END DO
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!    CUBIC      !!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
       DO i=1,nmovies          ! loop 1
        f=INT(maxi(i)/npseudo); IF (f.EQ.0) GOTO 5
        cs=0
@@ -28,25 +48,11 @@
                        ysite(s,w),zsite(s,w),distsc)
 
           IF (distsc.LE.radius(s)) THEN  ! condition 1.1
-           cs(s)=cs(s)+1
+           cs(s)=cs(s)+1  
           END IF                         ! condition 1.1
           END DO              ! loop 4.1
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!!!!!!!!!!!!!!!!  SPHERICAL    !!!!!!!!!!!!!!!!
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!!!!!!!!!!!!!!!!!!    CUBIC      !!!!!!!!!!!!!!!!
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        CASE ("cubic")
-        IF ((radx(s).NE.rady(s)).OR.(radx(s).NE.radz(s)).OR. &
-             (rady(s).NE.radz(s))) THEN
-        PRINT*, "ERROR, RADIUS DON'T DEFINE A CUBE!"; PRINT*, ""
-        STOP
-        END IF
-        geom(s)="rectangular"
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!!!!!!!!!!!!!!!!!!    CUBIC      !!!!!!!!!!!!!!!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -66,7 +72,7 @@
          CALL distance(zero,zero,zCOM(i,j),zero, & 
                        zero,zsite(s,w),distsc)
           IF (distsc.LE.radz(s)) THEN  ! condition 1.3
-           cs(s)=cs(s)+1
+           cs(s)=cs(s)+1  
           END IF                       ! condition 1.3
           END IF                       ! condition 1.2
           END IF                       ! condition 1.1

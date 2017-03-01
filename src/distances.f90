@@ -9,5 +9,9 @@
            yf=ABS(yf-(ly*sgam))
            xf=ABS(xf+(ly*cgam))
           END IF
-          IF (zf.GT.(lz/2.0)) zf=ABS(zf-lz)
+!         IF (zf.GT.(lz/2.0)) zf=ABS(zf-lz)
+          IF (zf.GT.(lz*sbet/2.0)) THEN 
+           zf=ABS(zf-(lz*sbet))
+           xf=ABS(xf+(lz*cbet))
+          END IF
           dist=SQRT(xf*xf+yf*yf+zf*zf)
