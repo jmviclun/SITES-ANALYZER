@@ -7,6 +7,7 @@ ComputeAverageOccupationProfiles2D         yes
 Resolution                                 300
 ComputeAverageOccupationProfiles1D         no
 ComputeSites                               yes
+WriteSitesSurfacePDB                       no
 # Framework name for pdb file with positions of sites  **
 FrameworkName       ITQ-1
 NumberOfSites        4
