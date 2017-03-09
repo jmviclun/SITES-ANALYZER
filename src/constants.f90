@@ -22,6 +22,8 @@
       lzsbet=lz*sbet
       lzcalp=lx*calp
       lzsalp=lx*salp
+      chi1=(calp-cgam*cbet)/sgam
+      chi2=sqrt(1-cbet*cbet-chi1*chi1)
 
 
       IF ((alp.EQ.90).AND.(bet.EQ.90).AND.(gam.EQ.90)) structype="type0"

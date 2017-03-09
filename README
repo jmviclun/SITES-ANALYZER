@@ -2,8 +2,12 @@
 
 For installation instructions see INSTALLATION
 
-This program reads 3D atomic positions of molecules (e.g. .pdb file) and analyzes the population surrounding defined input sites.
+This program reads 3D atomic positions of molecules (e.g. .pdb file) and analyzes the population inside defined input sites.
 In addition, It makes average ocupation profiles in 1 and 2 dimensions.
+The program gives the possibility of create a pdb file with the surface of defined sites. 
+The program works with the positions in cartesians coordinates (x,y,z,90,90,90), modifying the fractional units (a,b,c,alpha,beta,gamma) (If needed) attending to:
+1) The a cell vector is aligned along the x-axis
+2) The b cell vector is aligned in the xy-plane 
 
 Some examples resulting from adsorption of gasses in porous materials are in the examples folder
 
@@ -12,6 +16,10 @@ If ComputeSites is set as "yes" XXXX_Framework_sites.pdb file should be in the w
 The run the program:
 
 > ./zzrunSITES your_file.pdb
+
+or save the zzrunSITES in ~/bin folder and type: (RECOMMENDED)
+
+> zzrunSITES your_file.pdb
 
 where your_file.pdb is the file that contain the 3-dimensional positions of the atoms.
 By default the program read a standard file in .pdb format https://en.wikipedia.org/wiki/Protein_Data_Bank_(file_format) with structure:

@@ -16,34 +16,38 @@
        PRINT*, ""; PRINT*, "WARNING: No adsorbed molecules"; PRINT*,""
       PRINT*,""; PRINT*, "RESULTS:"
       PRINT*,"========================================================="
+       WRITE(4,*) ""; WRITE(4,*) "WARNING: No adsorbed molecules"
+      WRITE(4,*) ""
+      WRITE(4,*) ""; WRITE(4,*)  "RESULTS:"
+      WRITE(4,*) "====================================================="
+
       DO s=1,numberofsites
        PRINT*, ""
       WRITE(*,'(F7.3,A25,I4)')totalaverage(s),"% of molecules in SITE",s
+      WRITE(4,*) ""
+      WRITE(4,'(F7.3,A25,I4)')totalaverage(s),"% of molecules in SITE",s
       END DO
       PRINT*,""
       PRINT*,"========================================================="
       PRINT*,""
       WRITE(*,'(F7.3,A34)')totalperc, "% of molecules in defined SITES"
+      WRITE(4,*) ""
+      WRITE(4,*) "====================================================="
+      WRITE(4,*) ""
+      WRITE(4,'(F7.3,A34)')totalperc, "% of molecules in defined SITES"
        GOTO 25
        END IF
 
-       PRINT*, numberofsites, "DEFINED SITES:"; PRINT*,""
-      DO s=1,numberofsites
-       WRITE(*,'(A5,I4,A6,I6,A16,A20,A8)') "SITE",s,"HAS",npossite(s),&
-             "POSITIONS WITH", geomoutput(s), "GEOMETRY"
-       WRITE(*,'(A10,A4,F7.3,A4,F7.3,A4,F7.3)') "Radius-->", "x:",&
-             radx(s),"y:",rady(s),"z:",radz(s)
-       PRINT*,""
-      END DO
-
-
       PRINT*,""; PRINT*, "RESULTS:"
+      WRITE(4,*) ""; WRITE(4,*)  "RESULTS:"
       PRINT*,"========================================================="
+      WRITE(4,*) "====================================================="
       DO s=1,numberofsites
        totalaverage(s)=totalaverage(s)/REAL(nmoviesmod)
        totalperc=totalperc+totalaverage(s)
-       PRINT*, ""
+       PRINT*, ""; WRITE(4,*) ""
       WRITE(*,'(F7.3,A25,I4)')totalaverage(s),"% of molecules in SITE",s
+      WRITE(4,'(F7.3,A25,I4)')totalaverage(s),"% of molecules in SITE",s
       END DO
       PRINT*,""
       PRINT*,"========================================================="
@@ -51,5 +55,10 @@
       WRITE(*,'(F8.3,A34)')totalperc, "% of molecules in defined SITES"
       PRINT*,"========================================================="
 
+      WRITE(4,*) ""
+      WRITE(4,*) "====================================================="
+      WRITE(4,*) ""
+      WRITE(4,'(F8.3,A34)')totalperc, "% of molecules in defined SITES"
+      WRITE(4,*) "====================================================="
 25    PRINT*, " "
 

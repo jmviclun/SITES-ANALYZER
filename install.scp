@@ -1,6 +1,7 @@
 #!/bin/bash
 
-rm execute/site.x zzrunSITES
+if [ -e "execute/site.x" ] ; then rm execute/site.x ; fi
+if [ -e "zzrunSITES" ] ; then rm zzrunSITES ; fi
 
 FC=gfortran
 EXE=site.x

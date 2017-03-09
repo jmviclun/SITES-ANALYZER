@@ -1,20 +1,20 @@
 #!/bin/bash
 
-if [ -d "AvOPs" ]; then
-rm -r AvOPs
-fi
+if [ -d "AvOPs" ]; then rm -r AvOPs ; fi
+if [ -e "output-SITE.data" ]; then rm output-SITE.data ; fi
+if [ -e "3D-sites-surface.pdb" ]; then rm 3D-sites-surface.pdb ; fi
+if [ ! -f "sites.input" ]; then echo "sites.input file not found" ; exit 1 ; fi
 
 cp $1 INPUT.pdb
 
 grep "ATOM" $1 | awk '{print $5,$6,$7}' > atom-positions.dat
 
 compsites=$(grep "ComputeSites" sites.input | awk '{print $2}')
-if [ $compsites = "yes" ]
-then
+writesites=$(grep "WriteSitesSurfacePDB" sites.input | awk '{print $2}')
+if [ $compsites = "yes" ] || [ $writesites = "yes" ]; then
 Fname=$(grep "FrameworkName" sites.input | awk '{print $2}')
-grep "ATOM" ${Fname}_Framework_sites.pdb | awk '{print $5,$6,$7}' > SITE-positions.dat
-else
-echo " " > SITE-positions.dat
+grep "ATOM" ${Fname}_Framework_sites.pdb | awk '{print $3,$5,$6,$7}' > SITE-positions.dat
+else echo " " > SITE-positions.dat
 fi
 
 wc -l INPUT.pdb | awk '{print $1}' > input-fortran
@@ -23,8 +23,5 @@ wc -l atom-positions.dat | awk '{print $1}' >> input-fortran
 grep "CRYST" INPUT.pdb | head -1 | awk '{print $2,$3,$4,$5,$6,$7}' >> input-fortran
 grep -v "#" sites.input >> input-fortran 
 
-mkdir AvOPs
-
-mkdir AvOPs/1D
-mkdir AvOPs/2D
+mkdir AvOPs ; mkdir AvOPs/1D ; mkdir AvOPs/2D
 

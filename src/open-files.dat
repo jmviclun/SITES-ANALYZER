@@ -1,0 +1,14 @@
+#UNIT   FILE		        ACTION
+1	INPUT.pdb		READ
+2	atom-positions.dat	READ
+3	SITE-positions.dat	READ
+4	output-SITE.data	WRITE
+5	3D-sites-surface.pdb  	WRITE
+11	AvOPs-1D-X.dat		WRITE
+12	AvOPs-1D-Y.dat		WRITE
+13	AvOPs-1D-Z.dat		WRITE
+14	input-fortran		READ
+21	AvOPs-1D-XY.dat		WRITE
+22	AvOPs-1D-YZ.dat		WRITE
+23	AvOPs-1D-ZX.dat		WRITE
+
