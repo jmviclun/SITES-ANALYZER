@@ -1,12 +1,15 @@
 ! SITE-ANALYZER version beta_1.0
-! Developed by J.M. Vicent-Luna and A. Slawek
+! Developed by J.M. Vicent-Luna and A. Sławek
 ! First version created: January 2017
-! Last version modified: 01 March 2017
+! Last version modified: 09 March 2017
 
       PROGRAM siteAnalyzer
       IMPLICIT NONE
 
       INCLUDE 'declarevar.f90'
+
+      OPEN(4,file="output-SITE.data",STATUS='NEW', ACTION='WRITE')
+
       CALL SYSTEM_CLOCK(tickstart,tickrate)
 
       CALL readinput
@@ -31,9 +34,18 @@
 
         IF (compsites.EQ."yes") THEN
       CALL readsites   
+         IF (writesitsurf.EQ."yes".OR.writesitsurf.EQ."YES") THEN
+      CALL writepdbsites
+         END IF
       CALL computesites      
       CALL finalresults
+        ELSE 
+         IF (writesitsurf.EQ."yes".OR.writesitsurf.EQ."YES") THEN
+      CALL readsites   
+      CALL writepdbsites
+         END IF
         END IF
+
 
         CALL SYSTEM_CLOCK(tickstop)
         time=FLOAT(tickstop-tickstart)/FLOAT(tickrate)
@@ -41,11 +53,22 @@
         WRITE(*,*) " "
         WRITE(*,*) " Computation time: "
         WRITE(*,*) " "
-        WRITE(*,'(F12.4,A8,F12.4,A8)') time, "seconds  ===>>",&
+        WRITE(*,'(F12.4,A15,F8.4,A8)') time, "seconds  ===>>",&
                                        time/60.0, "minutes"
-        WRITE(*,*) " =========================================== "
+      WRITE(*,*) "====================================================="
 
         PRINT*, " "; PRINT*, "  End Of Program"; PRINT*, " "
+
+        WRITE(4,*) " "
+        WRITE(4,*) " Computation time: "
+        WRITE(4,*) " "
+        WRITE(4,'(F12.4,A15,F8.4,A8)') time, "seconds  ===>>",&
+                                       time/60.0, "minutes"
+      WRITE(4,*) "====================================================="
+
+        WRITE(4,*) " "; WRITE(4,*) "  End Of Program"; WRITE(4,*) " "
+
+        CLOSE (UNIT=4)
 
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -75,7 +98,11 @@
        INCLUDE 'computesites.f90'
       END SUBROUTINE computesites
 
-      SUBROUTINE distance(x1,y1,z1,x2,y2,z2,dist)
+      SUBROUTINE writepdbsites
+       INCLUDE 'writepdbsites.f90'
+      END SUBROUTINE writepdbsites
+
+      SUBROUTINE distance(x1,y1,z1,x2,y2,z2,dist,xf,yf,zf)
        INCLUDE 'distances.f90'
       END SUBROUTINE distance
 
