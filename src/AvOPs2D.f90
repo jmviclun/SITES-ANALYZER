@@ -48,14 +48,24 @@
        END IF
       
        CASE ("type4")
-       IF (lycgam.GT.lzcbet) THEN
-       ix=(lx+2.0*ABS(lycgam))/nbw
-       initx=-1*ABS(lycgam)
+       IF (ABS(lycgam).GT.ABS(lzcbet)) THEN
+        IF (gam.GT.90.0) THEN
+        ix=(lx+ABS(lycgam))/nbw
+        initx=-1*ABS(lycgam)
+        ELSE IF (gam.LE.90.0) THEN
+        ix=(lx+ABS(lycgam))/nbw
+        initx=0.0
+        END IF
        ELSE
-       ix=(lx+2.0*ABS(lzcbet))/nbw
-       initx=-1*ABS(lzcbet)
+        IF (bet.GT.90.0) THEN
+        ix=(lx+ABS(lzcbet))/nbw
+        initx=-1*ABS(lzcbet)
+        ELSE IF (bet.LE.90.0) THEN
+        ix=(lx+ABS(lzcbet))/nbw
+        initx=-1*ABS(lzcbet)
+        END IF
        END IF
-       iy=(lysgam+2*ABS(lzcalp))/nbw
+       iy=(lysgam+ABS(lzcalp))/nbw
        inity=-1*ABS(lzcalp)
 
        END SELECT
